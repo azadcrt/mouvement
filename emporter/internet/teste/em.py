@@ -333,7 +333,6 @@ def set_gyro_low_pass(enabled=True, mode=5):
     value |= (mode & 0x07) << 4
     write(0x01, value)
         
-
 def eui64_to_hash(eui64):
     return ''.join('{:02X}'.format(b) for b in eui64)
 
@@ -343,16 +342,17 @@ eui64_hash = eui64_to_hash(local_eui64)
 message_id = 0
 received_messages = {}
 
-def create_message(message, message_id, path, rssi, start_time):
+def create_message(message, message_id, path, rssi_list, start_time):
     path_str = ",".join(path)
-    full_message = f"{message_id}:{path_str}:{rssi}:{start_time}:{message}"
+    rssi_str = ",".join(map(str, rssi_list))  # Convertir les éléments de rssi_list en chaînes
+    full_message = f"{message_id}:{path_str}:{rssi_str}:{start_time}:{message}"
     return full_message
 
 def send_broadcast(message):
     global message_id
-    start_time = time.time()  
-    rssi = 0.0
-    full_message = create_message(message, message_id, [local_eui64.decode()], rssi, start_time)
+    start_time = time.ticks_us()
+    rssi_list = [0]  # Initialisation de la liste des RSSI
+    full_message = create_message(message, message_id, [local_eui64.decode()], rssi_list, start_time)
     try:
         xbee.transmit(xbee.ADDR_BROADCAST, full_message.encode())
         print(f"Message broadcast envoyé avec succès: {full_message}")
@@ -360,7 +360,6 @@ def send_broadcast(message):
     except Exception as e:
         print("Erreur lors de l'envoi du message:", e)
 
-# Fonction pour gérer les messages reçus
 def handle_received_message(data, sender):
     global received_messages
     try:
@@ -369,7 +368,7 @@ def handle_received_message(data, sender):
         message_id_str = parts[0]
         
         path = parts[1].split(",")
-        rssi = parts[2]
+        rssi = parts[2].split(",")
         start_time = parts[3]
         message = ":".join(parts[4:])
         
@@ -384,13 +383,13 @@ def handle_received_message(data, sender):
             received_messages[sender] = message_id_str
             path.append(local_eui64.decode())
             new_rssi = xbee.atcmd("DB")  # RSSI de la retransmission
-            full_message = create_message(message, message_id_str, path, new_rssi, start_time)
+            rssi.append(new_rssi)
+            full_message = create_message(message, message_id_str, path, rssi, start_time)
             xbee.transmit(xbee.ADDR_BROADCAST, full_message.encode())
             print(f"Message retransmis: {full_message}")
     except Exception as e:
         print("Erreur lors de la gestion du message reçu:", e)
 
-# Fonction pour recevoir les messages
 def receive_messages():
     try:
         data = xbee.receive()

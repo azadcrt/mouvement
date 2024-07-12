@@ -34,12 +34,9 @@ write(0x02, 0x01)
 mw(0x32, 0x01)
 while mr(0x32) == 0x01:
     time.sleep(0.0001)
+
+#xbee.atcmd('PL', 0)
     
-xbee.atcmd("SM", 0)  # Désactiver le mode veille
-xbee.atcmd("PL", 0)  # Réglez la puissance d'émission au mini
-#xbee.atcmd("SP", 0)  # Intervalle de détection en mode sommeil
-#xbee.atcmd("SN", 0)  # Intervalle de détection en mode sommeil   
- 
 def getmagne():
     z,y,z = rmd()
     return z,y,z
