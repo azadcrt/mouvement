@@ -2,12 +2,14 @@ import machine
 import struct
 import time
 import xbee
-
+import os
+import json
 
 i2c = machine.I2C(1)
 
 message_id = 0
 received_messages = {}
+log = {}
 pi = 3.141592653589793
 local_eui64 = xbee.atcmd("SH") + xbee.atcmd("SL")
 is_micropython = hasattr(time, 'ticks_diff')
@@ -332,8 +334,25 @@ def set_gyro_low_pass(enabled=True, mode=5):
         value |= 0b1
     value |= (mode & 0x07) << 4
     write(0x01, value)
-        
 
+def ecrire_log(sender, etat):
+    global log
+    
+    if sender not in log:
+        log[sender] = (0, 0)
+        
+    log[sender] = (log[sender][0] + etat, log[sender][1] + 1)
+    
+
+def user():
+    global log
+    try:
+        with open('/flash/test.txt', 'w') as file:
+            json.dump(log, file)
+        print("Log sauvegardé avec succès.")
+    except Exception as e:
+        print(f"Erreur lors de la sauvegarde du log : {e}")
+        
 def eui64_to_hash(eui64):
     return ''.join('{:02X}'.format(b) for b in eui64)
 
@@ -351,8 +370,10 @@ def send_broadcast(message):
         xbee.transmit(xbee.ADDR_BROADCAST, full_message.encode())
         print(f"Message broadcast envoyé avec succès: {full_message}")
         message_id += 1
+        ecrire_log(eui64_hash, 1)
     except Exception as e:
         print("Erreur lors de l'envoi du message:", e)
+        ecrire_log(eui64_hash, 0)
 
 def handle_received_message(data, sender):
     global received_messages
@@ -379,14 +400,16 @@ def handle_received_message(data, sender):
             path.append(f"{local_eui64.decode()}:{rssi}")
             full_message = create_message(message, message_id_str, path)
             xbee.transmit(xbee.ADDR_BROADCAST, full_message.encode())
+            ecrire_log(eui64_to_hash(sender), 1)
             print(f"Message retransmis: {full_message}")
     except Exception as e:
-        print("Erreur lors de la gestion du message reçu:", e)
+        print(f"Erreur lors de la gestion du message reçu de {sender}: {e}")
+        ecrire_log(eui64_to_hash(sender), 0)
 
 def receive_messages():
     try:
         data = xbee.receive()
         if data:
-            handle_received_message(data['payload'],data['sender_eui64'])
+            handle_received_message(data['payload'], data['sender_eui64'])
     except Exception as e:
         print("Erreur lors de la réception du message:", e)

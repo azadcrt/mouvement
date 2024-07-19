@@ -5,11 +5,14 @@ import struct
 import time
 import xbee
 
+
 i2c = machine.I2C(1)
 
 fuse = Fusion()
 Calibrate = True
 Timing = True
+
+user_button_pin = machine.Pin('D4', machine.Pin.IN, machine.Pin.PULL_UP)
 
 i2c.writeto_mem(0x69, 0x7F, b'\x00')
 write(0x06, 0x80)
@@ -57,7 +60,9 @@ if Timing:
 
 ltt = time.ticks_ms()
 while True:
-
+    if user_button_pin.value() == 0:
+        user()
+     
     receive_messages()
     ax, ay, az, gx, gy, gz = ragd()
     x, y, z = rmd()
@@ -65,8 +70,6 @@ while True:
         fuse.update([ax, ay, az], [gx, gy, gz], [x, y, z])
         if time.ticks_diff(time.ticks_ms(), ltt) >= 5000:
             payload = str(fuse.q[0]) + ',' + str(fuse.q[1]) + ',' + str(fuse.q[2]) + ',' + str(fuse.q[3])
-            #print(payload)
-            #print(time.ticks_ms()/1000)
             try:
                 send_broadcast(payload)
                 ltt = time.ticks_ms()
