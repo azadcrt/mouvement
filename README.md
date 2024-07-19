@@ -17,7 +17,7 @@ Code de la XBEE puit.
 
 ## Final.blend
 Projet blender contenant un modele humain lie a un squelette (rigging) ainsi que deux script (api pour lire les quaternions et reset pour reset la scene blender)
--IMPORTANT: il faut avoir le squelette de séléctioné pour lancer les script (plus facilement visible en wireframe)
+- IMPORTANT: il faut avoir le squelette de séléctioné pour lancer les script (plus facilement visible en wireframe)
 
 ## En cours
 Nouvelle fonctionnalité pas encore complètement sûre
