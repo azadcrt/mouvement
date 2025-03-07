@@ -24,6 +24,11 @@ Contient une version basique du projet, mettant en œuvre la communication entre
 
 # Maryline  
 Ce dossier intègre des adaptations et améliorations basées sur les retours des premiers utilisateurs.  
+### Étapes supplémentaires :
+1. **Connexion de l'application mobile** : Connecter l'application mobile au puits.  
+2. **Calibration des capteurs** : Appuyer sur les boutons **USER** des nœuds pour qu'ils calibrent leurs **9-DOF**.  
+3. **Attente de la synchronisation** : Une fois la LED de chaque nœud clignote, appuyer sur le bouton **USER** du puits pour envoyer un message de synchronisation d'horloge.  
+4. **Vérification RSSI** : Lorsque tous les nœuds ont leurs LEDs **RSSI** allumées, appuyer sur **tous** les boutons **USER** pour passer en mode fonctionnement.  
 
 # reconnaitre.zip  
 Archive contenant le projet **Android Studio** lié au projet.
