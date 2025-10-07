@@ -32,7 +32,7 @@ Ce dossier intègre des adaptations et améliorations basées sur les retours de
 
 # Deposit
 In this folder u will find the last version of the xbee code. u will find two folder in it NODE and SINK in each u will find two type of file .py or .mp. The python file are source code or executable code, mpy are compiled python code.
-I will explain the main goal of each file:
+###I will explain the main goal of each file:
   -main.py is the code read when started by the xbee chip.
   -horloge is the code in charge of the global timer its the same in sink and node just not the same call in main.py
   -api.py if u dont want to use bluethoot u have to set the api setting on xbee to 1. (4 for bluethoot use)
