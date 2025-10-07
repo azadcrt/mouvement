@@ -30,13 +30,30 @@ Ce dossier intègre des adaptations et améliorations basées sur les retours de
 3. **Attente de la synchronisation** : Une fois la LED de chaque nœud clignote, appuyer sur le bouton **USER** du puits pour envoyer un message de synchronisation d'horloge.  
 4. **Vérification RSSI** : Lorsque tous les nœuds ont leurs LEDs **RSSI** allumées, appuyer sur **tous** les boutons **USER** pour passer en mode fonctionnement.
 
-# Deposit
-In this folder u will find the last version of the xbee code. u will find two folder in it NODE and SINK in each u will find two type of file .py or .mp. The python file are source code or executable code, mpy are compiled python code.
-### I will explain the main goal of each file:
-  -main.py is the code read when started by the xbee chip.
-  -horloge is the code in charge of the global timer its the same in sink and node just not the same call in main.py
-  -api.py if u dont want to use bluethoot u have to set the api setting on xbee to 1. (4 for bluethoot use)
-  -em is the network protocol. 
-  -xbeEm is the sensor controler and the xbee set up.
+Structure
+
+NODE/ — code for the sensor nodes.
+
+SINK/ — code for the receiver / sink.
+
+Each folder includes two types of files:
+
+*.py : Python source files (readable / executable).
+
+*.mp or *.mpy : compiled MicroPython files (depending on your build process — some environments use .mp, others .mpy).
+
+Note: Git doesn’t keep empty folders. If you need to preserve an empty folder in the repo, add a file like .gitkeep.
+
+Purpose of each file
+
+main.py: entry point — automatically executed by the XBee chip at startup.
+
+horloge.py (or horloge.mpy): handles the global timer. The code is the same for both the SINK and NODE; only the way it’s called in main.py differs.
+
+api.py: manages the XBee API mode configuration. If you don’t use Bluetooth, set the XBee API mode to 1. For Bluetooth use, you may need mode 4 depending on the firmware — check your XBee documentation.
+
+em.py: implements the network protocol (message management, routing, etc.).
+
+xbeEm.py: controls the sensors and handles XBee setup (initialization, sensor reading, sending/receiving data).
 # reconnaitre.zip  
 Archive contenant le projet **Android Studio** lié au projet.
