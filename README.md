@@ -30,7 +30,8 @@ Ce dossier intègre des adaptations et améliorations basées sur les retours de
 3. **Attente de la synchronisation** : Une fois la LED de chaque nœud clignote, appuyer sur le bouton **USER** du puits pour envoyer un message de synchronisation d'horloge.  
 4. **Vérification RSSI** : Lorsque tous les nœuds ont leurs LEDs **RSSI** allumées, appuyer sur **tous** les boutons **USER** pour passer en mode fonctionnement.
 
-Structure
+# deposit
+last version of the code.
 
 NODE/ — code for the sensor nodes.
 
@@ -40,11 +41,9 @@ Each folder includes two types of files:
 
 *.py : Python source files (readable / executable).
 
-*.mp or *.mpy : compiled MicroPython files (depending on your build process — some environments use .mp, others .mpy).
+*.mp or *.mpy : compiled MicroPython files.
 
-Note: Git doesn’t keep empty folders. If you need to preserve an empty folder in the repo, add a file like .gitkeep.
-
-Purpose of each file
+Purpose of each file:
 
 main.py: entry point — automatically executed by the XBee chip at startup.
 
