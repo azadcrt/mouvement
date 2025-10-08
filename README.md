@@ -55,4 +55,4 @@ em.py: implements the network protocol (message management, routing, etc.).
 
 xbeEm.py: controls the sensors and handles XBee setup (initialization, sensor reading, sending/receiving data).
 # reconnaitre.zip  
-Archive contenant le projet **Android Studio** lié au projet.
+ **Android Studio** project for the mobile app.
