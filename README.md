@@ -55,10 +55,12 @@ we aim for 3 types of messages:
  - lots of close nodes
  - near the sink node
  - wrong way messages (messages going away from the sink)
+
   **initialization** : 
 We add an initialization phase before the data collection to run an algorithm with these 3 goals in sight.
 The sink will periodically send messages containing: ID, cumulative RSSI and number of hops.
 Each node will receive the messages and resend them as a broadcast.
+
   **Decision** :
 During these message exchanges each node will keep in memory the best message for each ID.
 -they will adjust their Tx power depending on the best RSSI they get, to reduce the cluster effect.
