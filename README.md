@@ -72,5 +72,8 @@ During these message exchanges each node will keep in memory the best message fo
 Each node will keep its best RSSI from the initialization phase and send it with other data.
 When a message is received we compare these two best RSSI and choose to re-send it only if we are closer to the sink in terms of best RSSI than the last node.
 
+**Results**:
+https://docs.google.com/spreadsheets/d/1Ck4Lg_gTh0_hN6QBT-TKV7LzArwBPWryCENxQ3cCqaU/edit?usp=sharing
+
 # reconnaitre.zip  
  **Android Studio** project for the mobile app.
