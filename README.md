@@ -47,7 +47,8 @@ api.py: manages the XBee API mode configuration. If you don’t use Bluetooth, s
 em.py: implements the network protocol (message management, routing, etc.).
 
 xbeEm.py: controls the sensors and handles XBee setup (initialization, sensor reading, sending/receiving data).
-
+# ICM
+Folder with the xbeEM.py who containts the base code for using ICM with xbee micropython.
 
 # algo
 with this algorithm we want to reduce the number of useless messages in the network.
