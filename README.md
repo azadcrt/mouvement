@@ -77,3 +77,28 @@ https://docs.google.com/spreadsheets/d/1Ck4Lg_gTh0_hN6QBT-TKV7LzArwBPWryCENxQ3cC
 
 # reconnaitre.zip  
  **Android Studio** project for the mobile app.
+
+# bill of material
+
+sink = 421BD0E6
+
+0 = 421DA5C1
+
+1 = 421BD0E8
+
+2 = 421BD3A9
+
+3 = 421BD3D4
+
+4 = 421BD3EC
+
+5 = 421BD43C
+
+6 = 424AFE9F
+
+7 = 4243D03B
+
+8 = 424B03AC
+
+9 = 423EED67
+
